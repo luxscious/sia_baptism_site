@@ -21,6 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initTabNavigation();
   initAttendanceToggle();
   initRSVPForm();
+  initShimmer();
+  initAutonomousButterflies();
 });
 
 /* ==========================================================================
@@ -199,6 +201,7 @@ function initOpeningAnimation() {
 
   gsap.set(butterfly, {
     x: startX, y: startY, scale: 1.8, opacity: 1,
+    visibility: 'visible',
     transformOrigin: 'center center',
   });
 
@@ -221,25 +224,29 @@ function initOpeningAnimation() {
     onComplete: () => {
       butterfly.style.display = 'none';
       bflyPos.visible = false;
-      initScrollAnimations();
+      if (overlay) {
+        overlay.style.maskImage = '';
+        overlay.style.webkitMaskImage = '';
+        overlay.style.display = 'none';
+      }
     },
   });
 
-  // Fade out sparkles after flight
+  // Start hero text fade-in while butterfly is still flying out
+  tl.call(() => { initScrollAnimations(); }, [], flightDuration - 0.7);
+
+  // Fade out sparkles concurrent with end of flight
   tl.to({ val: 1 }, {
     val: 0,
-    duration: 1.5,
+    duration: 0.4,
     ease: 'power1.out',
     onUpdate: function () {
       canvasOpacity = this.targets()[0].val;
     },
     onComplete: () => {
       animRunning = false;
-      if (overlay) overlay.style.display = 'none';
-      overlay.style.maskImage = '';
-      overlay.style.webkitMaskImage = '';
     },
-  }, flightDuration - 0.3);
+  }, flightDuration);
 }
 
 // Instant reveal used for reduced-motion or missing elements
@@ -253,12 +260,14 @@ function revealPageInstant() {
    2. SMOOTH SCROLLING (Lenis + GSAP ticker)
    ========================================================================== */
 
+let lenisInstance = null;
+
 function initSmoothScroll() {
-  const lenis = new Lenis();
+  lenisInstance = new Lenis({ lerp: 0.1, smoothWheel: true });
 
-  lenis.on('scroll', ScrollTrigger.update);
+  lenisInstance.on('scroll', ScrollTrigger.update);
 
-  gsap.ticker.add((time) => lenis.raf(time * 1000));
+  gsap.ticker.add((time) => lenisInstance.raf(time * 1000));
   gsap.ticker.lagSmoothing(0);
 }
 
@@ -267,42 +276,61 @@ function initSmoothScroll() {
    ========================================================================== */
 
 function initTabNavigation() {
-  const navItems = document.querySelectorAll('.nav-item[data-view]');
+  const mobileNavItems = document.querySelectorAll('.bottom-nav .nav-item[data-view]');
+  const desktopNavLinks = document.querySelectorAll('header .nav-link');
+  const views = document.querySelectorAll('.view');
 
-  if (!navItems.length) return;
+  // Map data-view values to section IDs
+  const sectionMap = { intro: 'invitation', info: 'details', rsvp: 'rsvp' };
 
-  navItems.forEach((item) => {
-    item.addEventListener('click', () => {
-      const targetView = item.dataset.view;
-
-      // Update active state on nav
-      navItems.forEach((n) => n.classList.remove('active'));
-      item.classList.add('active');
-
-      // Scroll to the section
-      const targetEl = document.getElementById(targetView);
-      if (targetEl) {
-        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // Wire up anchor clicks to Lenis so scrolling is smooth and conflict-free
+  document.querySelectorAll('a[href^="#"]').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target && lenisInstance) {
+        lenisInstance.scrollTo(target, { offset: 0 });
       }
     });
   });
 
-  // Update active nav item based on scroll position
-  const views = document.querySelectorAll('.view');
-  window.addEventListener('scroll', () => {
+  function updateActiveNav() {
     let current = '';
     views.forEach((view) => {
       const rect = view.getBoundingClientRect();
       if (rect.top <= window.innerHeight / 2) {
-        current = view.id;
+        current = view.dataset.view;
       }
     });
     if (current) {
-      navItems.forEach((n) => {
-        n.classList.toggle('active', n.dataset.view === current);
+      mobileNavItems.forEach((n) => {
+        const isActive = n.dataset.view === current;
+        n.classList.toggle('active', isActive);
+        if (isActive) {
+          n.classList.remove('text-deep-green/60');
+          n.classList.add('text-baptism-gold');
+        } else {
+          n.classList.add('text-deep-green/60');
+          n.classList.remove('text-baptism-gold');
+        }
+      });
+      desktopNavLinks.forEach((link) => {
+        const href = link.getAttribute('href')?.replace('#', '');
+        const isActive = href === sectionMap[current];
+        link.classList.toggle('active', isActive);
+        if (isActive) {
+          link.classList.remove('text-deep-green/60');
+          link.classList.add('text-baptism-gold', 'font-bold');
+        } else {
+          link.classList.add('text-deep-green/60');
+          link.classList.remove('text-baptism-gold', 'font-bold');
+        }
       });
     }
-  });
+  }
+
+  window.addEventListener('scroll', updateActiveNav);
+  updateActiveNav();
 }
 
 /* ==========================================================================
@@ -313,12 +341,12 @@ function initTabNavigation() {
 function initScrollAnimations() {
   gsap.registerPlugin(ScrollTrigger);
 
-  // Hero text — play immediately (already in view)
-  const heroItems = document.querySelectorAll('#intro .hero-content > *');
-  if (heroItems.length) {
-    gsap.fromTo(heroItems,
-      { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 0.7, stagger: 0.12, ease: 'power2.out' }
+  // Hero content — fade in as one block after butterfly exits
+  const heroContent = document.querySelector('#invitation .hero-content');
+  if (heroContent) {
+    gsap.fromTo(heroContent,
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }
     );
   }
 
@@ -438,7 +466,7 @@ function initRSVPForm() {
       }
 
       // 6. Success
-      form.style.display = 'none';
+      form.classList.add('hidden');
       showFormMessage('success', 'Thank you for your RSVP!');
 
     } catch (err) {
@@ -455,23 +483,93 @@ function initRSVPForm() {
 
 // Helper — show/hide form message banner
 function showFormMessage(type, text) {
-  // Try a shared .form-message element first, then type-specific ones
+  // Hide all form messages first
+  document.querySelectorAll('.form-message').forEach(el => {
+    el.classList.add('hidden');
+    el.style.display = 'none';
+  });
+
   let el = document.querySelector(`.form-message.${type}`);
-  if (!el) el = document.querySelector('.form-message');
-  if (!el) {
-    // Create one dynamically if the HTML doesn't include it
-    el = document.createElement('p');
-    el.className = `form-message ${type}`;
-    const form = document.querySelector('#rsvp-form');
-    if (form) form.parentNode.insertBefore(el, form.nextSibling);
-  }
+  if (!el) return;
 
-  // Reset classes and set the correct state
-  el.classList.remove('success', 'error', 'hidden');
-  el.classList.add(type);
-  el.textContent = text;
+  el.classList.remove('hidden');
   el.style.display = 'block';
+  el.textContent = text;
 
-  // Animate in
   gsap.fromTo(el, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' });
+}
+
+/* ==========================================================================
+   6. SHIMMER BACKGROUND
+   ========================================================================== */
+function initShimmer() {
+  const container = document.getElementById('shimmer-container');
+  if (!container) return;
+  const count = 30;
+  for (let i = 0; i < count; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'shimmer-particle';
+    const size = Math.random() * 3 + 1;
+    particle.style.width = size + 'px';
+    particle.style.height = size + 'px';
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.top = Math.random() * 100 + '%';
+    particle.style.setProperty('--tx', (Math.random() - 0.5) * 200 + 'px');
+    particle.style.setProperty('--ty', (Math.random() - 0.5) * 200 + 'px');
+    particle.style.setProperty('--duration', (Math.random() * 10 + 10) + 's');
+    particle.style.animationDelay = Math.random() * 20 + 's';
+    container.appendChild(particle);
+  }
+}
+
+/* ==========================================================================
+   7. AUTONOMOUS BUTTERFLIES
+   ========================================================================== */
+function initAutonomousButterflies() {
+  const BUTTERFLY_GIF = 'https://i.pinimg.com/originals/a6/03/b2/a603b225534bcedd37ab3e527b68fb55.gif';
+
+  function spawnButterfly() {
+    const b = document.createElement('div');
+    b.className = 'butterfly-auto';
+    const img = document.createElement('img');
+    img.src = BUTTERFLY_GIF;
+    img.style.cssText = 'width:100%;height:100%;object-fit:contain;pointer-events:none;user-select:none;';
+    b.appendChild(img);
+
+    const startX = Math.random() > 0.5 ? -60 : window.innerWidth + 60;
+    const startY = Math.random() * window.innerHeight;
+    let posX = startX, posY = startY;
+    b.style.left = posX + 'px';
+    b.style.top = posY + 'px';
+    document.body.appendChild(b);
+
+    const speed = 1 + Math.random() * 2;
+    // direction: 1 = flying right, -1 = flying left
+    const direction = startX < 0 ? 1 : -1;
+    let angle = (Math.random() - 0.5) * Math.PI / 4;
+    let time = 0;
+
+    function fly() {
+      time += 0.05;
+      posX += speed * Math.cos(angle) * direction;
+      posY += speed * Math.sin(angle) + Math.sin(time * 2) * 2;
+      angle += (Math.random() - 0.5) * 0.06;
+
+      // Flip image horizontally if flying right (direction === 1)
+      const flipX = direction === 1 ? -1 : 1;
+      b.style.transform = `translate(-50%,-50%) scaleX(${flipX})`;
+      b.style.left = posX + 'px';
+      b.style.top = posY + 'px';
+
+      if (posX < -120 || posX > window.innerWidth + 120 || posY < -120 || posY > window.innerHeight + 120) {
+        b.remove();
+      } else {
+        requestAnimationFrame(fly);
+      }
+    }
+    fly();
+    setTimeout(spawnButterfly, 8000 + Math.random() * 10000);
+  }
+  setTimeout(spawnButterfly, 6000);
+  setTimeout(spawnButterfly, 14000);
 }

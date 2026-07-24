@@ -1,19 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>Baptism of Athanasia</title>
+
+  <!-- Tailwind CDN -->
+  <script>window.__tw_no_cdn_badge = true;</script>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=Source+Sans+3:wght@300;400;500;600&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Great+Vibes&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Source+Sans+3:wght@300;400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300;1,8..60,400&display=swap" rel="stylesheet" />
 
-  <!-- Stylesheet -->
+  <!-- Tailwind Config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            "surface": "#ffffff",
+            "on-surface": "#1c1c1a",
+            "on-surface-variant": "#45483d",
+            "outline": "#76786c",
+            "outline-variant": "#c6c8ba",
+            "surface-container": "#f0ede9",
+            "surface-container-low": "#f6f3ef",
+            "primary": "#233209",
+            "primary-container": "#39491e",
+            "secondary": "#745a35",
+            "accent-pink": "#BC8A98",
+            "soft-pink": "#F2D8D5",
+            "deep-pink": "#C68483",
+            "baptism-gold": "#A88A61",
+            "deep-green": "#39491E"
+          },
+          fontFamily: {
+            "display": ["Playfair Display"],
+            "headline": ["Libre Caslon Text"],
+            "body": ['"Source Serif 4"'],
+            "label": ['"Source Sans 3"'],
+            "script": ["Great Vibes", "cursive"],
+            "trajan": ["Cinzel", "Georgia", "serif"]
+          },
+          spacing: {
+            "margin-page": "5vw",
+            "container-max": "1100px",
+            "gutter": "24px",
+            "stack-sm": "1rem",
+            "stack-md": "2rem",
+            "stack-lg": "4rem"
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom styles for animations/effects -->
   <link rel="stylesheet" href="css/styles.css" />
 
   <!-- GSAP -->
@@ -30,218 +74,203 @@
   <!-- Main script -->
   <script defer src="js/main.js"></script>
 </head>
-<body>
+<body class="font-body bg-white text-deep-green overflow-x-hidden">
 
-  <!-- ─── Intro Overlay ───────────────────────────────────────────── -->
+  <!-- ─── Intro Overlay (opening animation) ─── -->
   <div class="intro-overlay" aria-hidden="true">
     <div class="butterfly">
       <img class="butterfly-img" src="assets/butterfly.gif" alt="Decorative butterfly" draggable="false" />
     </div>
   </div>
 
-  <!-- ─── Page Content ─────────────────────────────────────────────── -->
+  <!-- ─── Floral Background ─── -->
+  <div class="floral-bg"></div>
+
+  <!-- ─── Shimmer Particles ─── -->
+  <div class="shimmer-bg" id="shimmer-container"></div>
+
+  <!-- ─── Page Content ─── -->
   <div class="page-content">
 
-    <!-- Top Bar -->
-    <header class="top-bar" role="banner">
-      <span class="top-cross" aria-hidden="true">✝</span>
-      <span class="top-title">Baptism of Athanasia</span>
-    </header>
+    <main class="relative w-full max-w-[1100px] mx-auto px-[5vw] flex flex-col items-stretch">
 
-    <!-- ── View 1: Hero / Intro ──────────────────────────────────── -->
-    <section id="intro" class="view active" data-view="intro" aria-label="Introduction">
-      <div class="hero-content">
-        <span class="hero-cross" aria-hidden="true">✝</span>
+      <!-- ── Section 1: Hero / Invitation ── -->
+      <section id="invitation" class="view relative py-16 min-h-[90vh] flex flex-col items-center justify-center text-center" data-view="intro">
+        <div class="hero-content z-10 flex flex-col items-center space-y-8 max-w-2xl w-full" style="opacity:0;">
 
-        <p class="hero-join">JOIN US TO CELEBRATE</p>
-        <p class="hero-the">THE</p>
+          <svg class="w-16 h-16 fill-baptism-gold mb-4 opacity-90" viewBox="0 0 24 24">
+            <path d="M11 2V7H7V9H11V22H13V9H17V7H13V2H11Z"></path>
+          </svg>
 
-        <h1 class="hero-title">BAPTISM</h1>
-
-        <p class="hero-of">OF OUR DAUGHTER</p>
-
-        <p class="hero-name-first">Athanasia</p>
-        <p class="hero-name-last">GERGES-LEWIS</p>
-
-        <blockquote class="hero-quote">
-          <p>"Every good gift and every perfect gift is from above,<br>
-          and cometh down from the Father of lights."</p>
-          <cite>— James 1:17</cite>
-        </blockquote>
-      </div>
-    </section>
-
-    <!-- ── View 2: Info ──────────────────────────────────────────── -->
-    <section id="info" class="view" data-view="info" aria-label="Event information">
-      <div class="info-container info-cards-grid">
-
-        <!-- Card 1: Ceremony -->
-        <article class="info-card" aria-labelledby="ceremony-heading">
-          <span class="card-cross" aria-hidden="true">✝</span>
-          <h2 id="ceremony-heading" class="card-heading">THE CEREMONY</h2>
-
-          <address class="card-address">
-            St. George's Greek Orthodox Church<br>
-            1146 Purcells Cove Rd,<br>
-            Halifax, NS
-          </address>
-
-          <p class="card-date">Saturday September 5th</p>
-          <p class="card-time">12:30 PM</p>
-
-          <div class="map-embed">
-            <iframe
-              src="https://maps.google.com/maps?q=St+George%27s+Greek+Orthodox+Church+1146+Purcells+Cove+Rd+Halifax+NS&output=embed"
-              width="100%"
-              height="200"
-              style="border:0;"
-              allowfullscreen=""
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-              title="Map to St. George's Greek Orthodox Church"
-            ></iframe>
-          </div>
-        </article>
-
-        <!-- Card 2: Celebration -->
-        <article class="info-card" aria-labelledby="celebration-heading">
-          <h2 id="celebration-heading" class="card-heading">THE CELEBRATION</h2>
-
-          <p class="card-lunch">Lunch will follow at</p>
-
-          <p class="card-venue">Rudy's on the Arm</p>
-          <p class="card-venue-sub">at Armdale Yacht Club</p>
-
-          <address class="card-address">
-            75 Burger Run, Halifax, NS
-          </address>
-
-          <div class="map-embed">
-            <iframe
-              src="https://maps.google.com/maps?q=Armdale+Yacht+Club+75+Burger+Run+Halifax+NS&output=embed"
-              width="100%"
-              height="200"
-              style="border:0;"
-              allowfullscreen=""
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-              title="Map to Armdale Yacht Club"
-            ></iframe>
+          <div class="space-y-4">
+            <h3 class="font-label text-xs text-deep-green tracking-[0.4em] uppercase">Join us to celebrate the</h3>
+            <h1 class="font-trajan text-[48px] md:text-[80px] text-baptism-gold leading-none tracking-tighter uppercase">Baptism</h1>
+            <h3 class="font-label text-xs text-deep-green tracking-[0.3em] uppercase">of our daughter</h3>
           </div>
 
-          <p class="card-rsvp-date">Rsvp by August 7th</p>
-        </article>
-
-      </div>
-    </section>
-
-    <!-- ── View 3: RSVP ──────────────────────────────────────────── -->
-    <section id="rsvp" class="view" data-view="rsvp" aria-label="RSVP form">
-      <div class="rsvp-container">
-        <h2 class="rsvp-heading">Will you<br>join us?</h2>
-        <p class="rsvp-subtext">Please kindly respond by August 7th to help us prepare for this special occasion.</p>
-
-        <form id="rsvp-form" novalidate>
-
-          <div class="form-group">
-            <label for="name">FULL NAME</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              placeholder="Enter your name"
-              required
-              autocomplete="name"
-            />
+          <div class="py-8">
+            <p class="hero-name-first font-script text-[80px] md:text-[120px] text-baptism-gold leading-none drop-shadow-sm">Athanasia</p>
+            <p class="hero-name-last font-trajan text-3xl md:text-5xl text-baptism-gold tracking-widest uppercase opacity-90 mt-2">Gerges-Lewis</p>
           </div>
 
-          <div class="form-group">
-            <label for="email">EMAIL</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Enter your email"
-              required
-              autocomplete="email"
-            />
-          </div>
+          <div class="w-20 h-px bg-baptism-gold/30 mx-auto"></div>
 
-          <div class="form-group">
-            <fieldset>
-              <legend>ATTENDANCE</legend>
-              <div class="attendance-toggle">
-                <input type="radio" id="attend-yes" name="attending" value="yes" required />
-                <label for="attend-yes" class="radio-pill">Joyfully Accept</label>
-                <input type="radio" id="attend-no" name="attending" value="no" />
-                <label for="attend-no" class="radio-pill">Regretfully Decline</label>
+        </div>
+      </section>
+
+      <!-- ── Section 2: Event Details ── -->
+      <section id="details" class="view py-16 w-full" data-view="info">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+
+          <!-- Ceremony Card -->
+          <article class="info-card glass-card p-10 rounded-[40px] flex flex-col items-center text-center shadow-lg">
+            <svg class="w-10 h-10 fill-baptism-gold mb-6" viewBox="0 0 24 24">
+              <path d="M11 2V7H7V9H11V22H13V9H17V7H13V2H11Z"></path>
+            </svg>
+            <h4 class="font-label text-xs text-deep-green uppercase tracking-[0.2em] mb-4">The Ceremony</h4>
+            <p class="font-body font-bold text-deep-green">St. George's Greek Orthodox Church</p>
+            <p class="font-body text-deep-green mt-2">1146 Purcells Cove Rd,</p>
+            <p class="font-body text-deep-green">Halifax, NS</p>
+            <p class="font-headline text-xl text-baptism-gold mt-6">Saturday September 5th</p>
+            <p class="font-body text-deep-green mt-1">12:30 PM</p>
+
+            <div class="map-embed mt-6 w-full rounded-[20px] overflow-hidden shadow-md">
+              <iframe
+                src="https://maps.google.com/maps?q=St+George%27s+Greek+Orthodox+Church+1146+Purcells+Cove+Rd+Halifax+NS&output=embed"
+                width="100%"
+                height="180"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Map to St. George's Greek Orthodox Church"
+              ></iframe>
+            </div>
+          </article>
+
+          <!-- Celebration Card -->
+          <article class="info-card glass-card p-10 rounded-[40px] flex flex-col items-center text-center shadow-lg">
+            <h4 class="font-label text-xs text-deep-green uppercase tracking-[0.2em] mb-4">The Celebration</h4>
+            <p class="font-script text-4xl text-baptism-gold my-2">Lunch will follow at</p>
+            <p class="font-body font-bold text-deep-green mt-4">Rudy's on the Arm</p>
+            <p class="font-body text-deep-green">at Armdale Yacht Club</p>
+            <p class="font-body text-deep-green">75 Burger Run, Halifax, NS</p>
+            <p class="font-script text-3xl text-baptism-gold mt-6">Rsvp by August 7th</p>
+
+            <div class="map-embed mt-6 w-full rounded-[20px] overflow-hidden shadow-md">
+              <iframe
+                src="https://maps.google.com/maps?q=Armdale+Yacht+Club+75+Burger+Run+Halifax+NS&output=embed"
+                width="100%"
+                height="180"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Map to Armdale Yacht Club"
+              ></iframe>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- ── Section 3: RSVP ── -->
+      <section id="rsvp" class="view py-16 text-center mb-16 w-full" data-view="rsvp">
+        <div class="glass-card max-w-2xl mx-auto rounded-[60px] p-12 md:p-16 shadow-xl">
+          <h2 class="rsvp-heading font-script text-[64px] text-baptism-gold leading-none mb-4">Will you join us?</h2>
+          <p class="rsvp-subtext font-body text-deep-green mb-10 max-w-md mx-auto">Please kindly respond by August 7th to help us prepare for this special occasion.</p>
+
+          <form id="rsvp-form" class="space-y-6 text-left" novalidate>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="form-group space-y-2">
+                <label for="name" class="font-label text-[10px] uppercase tracking-[0.2em] text-deep-green ml-4">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required autocomplete="name"
+                  class="w-full bg-white/70 rounded-full border border-baptism-gold/30 focus:border-baptism-gold focus:ring-1 focus:ring-baptism-gold/10 placeholder:text-deep-green/40 px-6 py-3 font-body text-deep-green outline-none transition-colors" />
               </div>
-            </fieldset>
+              <div class="form-group space-y-2">
+                <label for="email" class="font-label text-[10px] uppercase tracking-[0.2em] text-deep-green ml-4">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required autocomplete="email"
+                  class="w-full bg-white/70 rounded-full border border-baptism-gold/30 focus:border-baptism-gold focus:ring-1 focus:ring-baptism-gold/10 placeholder:text-deep-green/40 px-6 py-3 font-body text-deep-green outline-none transition-colors" />
+              </div>
+            </div>
+
+            <div class="form-group space-y-2">
+              <label class="font-label text-[10px] uppercase tracking-[0.2em] text-deep-green ml-4">Attendance</label>
+              <div class="attendance-toggle flex gap-3 ml-4">
+                <input type="radio" id="attend-yes" name="attending" value="yes" required class="sr-only" />
+                <label for="attend-yes" class="radio-pill inline-flex items-center justify-center cursor-pointer px-7 py-3 border border-baptism-gold/30 rounded-full font-label text-xs tracking-[0.1em] uppercase text-deep-green/60 bg-transparent transition-all duration-200 hover:border-baptism-gold hover:text-baptism-gold">Joyfully Accept</label>
+                <input type="radio" id="attend-no" name="attending" value="no" class="sr-only" />
+                <label for="attend-no" class="radio-pill inline-flex items-center justify-center cursor-pointer px-7 py-3 border border-baptism-gold/30 rounded-full font-label text-xs tracking-[0.1em] uppercase text-deep-green/60 bg-transparent transition-all duration-200 hover:border-baptism-gold hover:text-baptism-gold">Regretfully Decline</label>
+              </div>
+            </div>
+
+            <div class="form-group guest-count-group hidden space-y-2">
+              <label for="guests" class="font-label text-[10px] uppercase tracking-[0.2em] text-deep-green ml-4">Number of Guests</label>
+              <select id="guests" name="guests"
+                class="w-full bg-white/70 rounded-full border border-baptism-gold/30 focus:border-baptism-gold focus:ring-1 focus:ring-baptism-gold/10 px-6 py-3 font-body text-deep-green outline-none transition-colors cursor-pointer">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+              </select>
+            </div>
+
+            <div class="form-group space-y-2">
+              <label for="dietary" class="font-label text-[10px] uppercase tracking-[0.2em] text-deep-green ml-4">Dietary Restrictions / Allergies</label>
+              <textarea id="dietary" name="dietary" placeholder="Any dietary requirements..." rows="3"
+                class="w-full bg-white/70 rounded-[30px] border border-baptism-gold/30 focus:border-baptism-gold focus:ring-1 focus:ring-baptism-gold/10 placeholder:text-deep-green/40 px-6 py-4 font-body text-deep-green outline-none transition-colors resize-vertical"></textarea>
+            </div>
+
+            <div class="form-group space-y-2">
+              <label for="message" class="font-label text-[10px] uppercase tracking-[0.2em] text-deep-green ml-4">Message for Athanasia</label>
+              <textarea id="message" name="message" placeholder="Leave a message for Athanasia..." rows="4"
+                class="w-full bg-white/70 rounded-[30px] border border-baptism-gold/30 focus:border-baptism-gold focus:ring-1 focus:ring-baptism-gold/10 placeholder:text-deep-green/40 px-6 py-4 font-body text-deep-green outline-none transition-colors resize-vertical"></textarea>
+            </div>
+
+            <div class="pt-4 flex justify-center">
+              <button type="submit" class="btn-primary w-full md:w-auto bg-baptism-gold text-white hover:bg-accent-pink px-16 py-5 rounded-full font-label text-xs tracking-[0.3em] uppercase transition-all duration-300 shadow-xl shadow-baptism-gold/20 active:scale-95 border-none cursor-pointer">
+                Send RSVP
+              </button>
+            </div>
+          </form>
+
+          <div class="form-message success hidden mt-6 text-center p-6 rounded-[20px] bg-deep-green/5 text-deep-green" role="alert">
+            Thank you for your RSVP! We look forward to celebrating with you.
           </div>
-
-          <div class="form-group guest-count-group hidden">
-            <label for="guests">NUMBER OF GUESTS</label>
-            <select id="guests" name="guests">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-            </select>
+          <div class="form-message error hidden mt-6 text-center p-6 rounded-[20px] bg-red-50 text-red-700" role="alert">
+            Something went wrong. Please try again.
           </div>
-
-          <div class="form-group">
-            <label for="dietary">DIETARY RESTRICTIONS / ALLERGIES</label>
-            <textarea
-              id="dietary"
-              name="dietary"
-              placeholder="Any dietary requirements..."
-              rows="3"
-            ></textarea>
-          </div>
-
-          <div class="form-group">
-            <label for="message">MESSAGE FOR ATHANASIA</label>
-            <textarea
-              id="message"
-              name="message"
-              placeholder="Leave a message for Athanasia..."
-              rows="4"
-            ></textarea>
-          </div>
-
-          <button type="submit" class="btn-primary">SEND RSVP</button>
-        </form>
-
-        <div class="form-message success" role="alert" style="display:none;">
-          Thank you for your RSVP! We look forward to celebrating with you.
         </div>
-        <div class="form-message error" role="alert" style="display:none;">
-          Something went wrong. Please try again.
-        </div>
+      </section>
 
-        <!-- Footer name -->
-        <p class="footer-name" aria-label="Athanasia">Athanasia</p>
-      </div>
-    </section>
+    </main>
+
 
   </div><!-- /.page-content -->
 
-  <!-- ─── Bottom Navigation ────────────────────────────────────────── -->
-  <nav class="bottom-nav" role="navigation" aria-label="Page sections">
-    <button class="nav-item active" data-view="intro" aria-label="Introduction" aria-current="true">
-      <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></span>
-      <span class="nav-label">INTRO</span>
-    </button>
-    <button class="nav-item" data-view="info" aria-label="Event information">
-      <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
-      <span class="nav-label">INFO</span>
-    </button>
-    <button class="nav-item" data-view="rsvp" aria-label="RSVP">
-      <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22 4 12 13 2 4"/></svg></span>
-      <span class="nav-label">RSVP</span>
-    </button>
+  <!-- Mobile Navigation (floating pill) -->
+  <nav class="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] z-50 rounded-full bg-white/90 backdrop-blur-xl border border-baptism-gold/20 shadow-2xl flex justify-around items-center py-3 px-4 bottom-nav">
+    <a href="#invitation" class="nav-item flex flex-col items-center justify-center text-baptism-gold" data-view="intro">
+      <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+      </svg>
+      <span class="font-label text-[8px] uppercase tracking-widest mt-1">Intro</span>
+    </a>
+    <a href="#details" class="nav-item flex flex-col items-center justify-center text-deep-green/60 hover:text-baptism-gold transition-all" data-view="info">
+      <svg class="w-6 h-6 fill-none stroke-current stroke-[1.5]" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+      </svg>
+      <span class="font-label text-[8px] uppercase tracking-widest mt-1">Info</span>
+    </a>
+    <a href="#rsvp" class="nav-item flex flex-col items-center justify-center text-deep-green/60 hover:text-baptism-gold transition-all" data-view="rsvp">
+      <svg class="w-6 h-6 fill-none stroke-current stroke-[1.5]" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22 4 12 13 2 4"/>
+      </svg>
+      <span class="font-label text-[8px] uppercase tracking-widest mt-1">RSVP</span>
+    </a>
   </nav>
 
 </body>
