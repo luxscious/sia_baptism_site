@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Baptism of Athanasia</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=Source+Sans+3:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <!-- GSAP -->
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js"></script>
+
+  <!-- Lenis smooth scroll -->
+  <script defer src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+
+  <!-- EmailJS -->
+  <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+  <!-- Main script -->
+  <script defer src="js/main.js"></script>
+</head>
+<body>
+
+  <!-- ─── Intro Overlay ───────────────────────────────────────────── -->
+  <div class="intro-overlay" aria-hidden="true">
+    <div class="butterfly">
+      <img class="butterfly-img" src="assets/butterfly.gif" alt="Decorative butterfly" draggable="false" />
+    </div>
+  </div>
+
+  <!-- ─── Page Content ─────────────────────────────────────────────── -->
+  <div class="page-content">
+
+    <!-- Top Bar -->
+    <header class="top-bar" role="banner">
+      <span class="top-cross" aria-hidden="true">✝</span>
+      <span class="top-title">Baptism of Athanasia</span>
+    </header>
+
+    <!-- ── View 1: Hero / Intro ──────────────────────────────────── -->
+    <section id="intro" class="view active" data-view="intro" aria-label="Introduction">
+      <div class="hero-content">
+        <span class="hero-cross" aria-hidden="true">✝</span>
+
+        <p class="hero-join">JOIN US TO CELEBRATE</p>
+        <p class="hero-the">THE</p>
+
+        <h1 class="hero-title">BAPTISM</h1>
+
+        <p class="hero-of">OF OUR DAUGHTER</p>
+
+        <p class="hero-name-first">Athanasia</p>
+        <p class="hero-name-last">GERGES-LEWIS</p>
+
+        <blockquote class="hero-quote">
+          <p>"Every good gift and every perfect gift is from above,<br>
+          and cometh down from the Father of lights."</p>
+          <cite>— James 1:17</cite>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- ── View 2: Info ──────────────────────────────────────────── -->
+    <section id="info" class="view" data-view="info" aria-label="Event information">
+      <div class="info-container info-cards-grid">
+
+        <!-- Card 1: Ceremony -->
+        <article class="info-card" aria-labelledby="ceremony-heading">
+          <span class="card-cross" aria-hidden="true">✝</span>
+          <h2 id="ceremony-heading" class="card-heading">THE CEREMONY</h2>
+
+          <address class="card-address">
+            St. George's Greek Orthodox Church<br>
+            1146 Purcells Cove Rd,<br>
+            Halifax, NS
+          </address>
+
+          <p class="card-date">Saturday September 5th</p>
+          <p class="card-time">12:30 PM</p>
+
+          <div class="map-embed">
+            <iframe
+              src="https://maps.google.com/maps?q=St+George%27s+Greek+Orthodox+Church+1146+Purcells+Cove+Rd+Halifax+NS&output=embed"
+              width="100%"
+              height="200"
+              style="border:0;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Map to St. George's Greek Orthodox Church"
+            ></iframe>
+          </div>
+        </article>
+
+        <!-- Card 2: Celebration -->
+        <article class="info-card" aria-labelledby="celebration-heading">
+          <h2 id="celebration-heading" class="card-heading">THE CELEBRATION</h2>
+
+          <p class="card-lunch">Lunch will follow at</p>
+
+          <p class="card-venue">Rudy's on the Arm</p>
+          <p class="card-venue-sub">at Armdale Yacht Club</p>
+
+          <address class="card-address">
+            75 Burger Run, Halifax, NS
+          </address>
+
+          <div class="map-embed">
+            <iframe
+              src="https://maps.google.com/maps?q=Armdale+Yacht+Club+75+Burger+Run+Halifax+NS&output=embed"
+              width="100%"
+              height="200"
+              style="border:0;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Map to Armdale Yacht Club"
+            ></iframe>
+          </div>
+
+          <p class="card-rsvp-date">Rsvp by August 7th</p>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ── View 3: RSVP ──────────────────────────────────────────── -->
+    <section id="rsvp" class="view" data-view="rsvp" aria-label="RSVP form">
+      <div class="rsvp-container">
+        <h2 class="rsvp-heading">Will you<br>join us?</h2>
+        <p class="rsvp-subtext">Please kindly respond by August 7th to help us prepare for this special occasion.</p>
+
+        <form id="rsvp-form" novalidate>
+
+          <div class="form-group">
+            <label for="name">FULL NAME</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Enter your name"
+              required
+              autocomplete="name"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="email">EMAIL</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter your email"
+              required
+              autocomplete="email"
+            />
+          </div>
+
+          <div class="form-group">
+            <fieldset>
+              <legend>ATTENDANCE</legend>
+              <div class="attendance-toggle">
+                <input type="radio" id="attend-yes" name="attending" value="yes" required />
+                <label for="attend-yes" class="radio-pill">Joyfully Accept</label>
+                <input type="radio" id="attend-no" name="attending" value="no" />
+                <label for="attend-no" class="radio-pill">Regretfully Decline</label>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="form-group guest-count-group hidden">
+            <label for="guests">NUMBER OF GUESTS</label>
+            <select id="guests" name="guests">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="dietary">DIETARY RESTRICTIONS / ALLERGIES</label>
+            <textarea
+              id="dietary"
+              name="dietary"
+              placeholder="Any dietary requirements..."
+              rows="3"
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="message">MESSAGE FOR ATHANASIA</label>
+            <textarea
+              id="message"
+              name="message"
+              placeholder="Leave a message for Athanasia..."
+              rows="4"
+            ></textarea>
+          </div>
+
+          <button type="submit" class="btn-primary">SEND RSVP</button>
+        </form>
+
+        <div class="form-message success" role="alert" style="display:none;">
+          Thank you for your RSVP! We look forward to celebrating with you.
+        </div>
+        <div class="form-message error" role="alert" style="display:none;">
+          Something went wrong. Please try again.
+        </div>
+
+        <!-- Footer name -->
+        <p class="footer-name" aria-label="Athanasia">Athanasia</p>
+      </div>
+    </section>
+
+  </div><!-- /.page-content -->
+
+  <!-- ─── Bottom Navigation ────────────────────────────────────────── -->
+  <nav class="bottom-nav" role="navigation" aria-label="Page sections">
+    <button class="nav-item active" data-view="intro" aria-label="Introduction" aria-current="true">
+      <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></span>
+      <span class="nav-label">INTRO</span>
+    </button>
+    <button class="nav-item" data-view="info" aria-label="Event information">
+      <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+      <span class="nav-label">INFO</span>
+    </button>
+    <button class="nav-item" data-view="rsvp" aria-label="RSVP">
+      <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22 4 12 13 2 4"/></svg></span>
+      <span class="nav-label">RSVP</span>
+    </button>
+  </nav>
+
+</body>
+</html>
