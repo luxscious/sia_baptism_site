@@ -6,10 +6,10 @@
 // ---------------------------------------------------------------------------
 // EmailJS Configuration — REPLACE ALL PLACEHOLDER VALUES BEFORE DEPLOYING
 // ---------------------------------------------------------------------------
-const EMAILJS_PUBLIC_KEY    = 'YOUR_PUBLIC_KEY';       // TODO: Replace with your EmailJS public key
-const EMAILJS_SERVICE_ID    = 'YOUR_SERVICE_ID';       // TODO: Replace with your EmailJS service ID
-const EMAILJS_TEMPLATE_HOST = 'YOUR_HOST_TEMPLATE_ID'; // TODO: Replace with host notification template ID
-const EMAILJS_TEMPLATE_GUEST= 'YOUR_GUEST_TEMPLATE_ID';// TODO: Replace with guest auto-reply template ID
+const EMAILJS_PUBLIC_KEY    = 'CwIbVq6Pu3B4JuoE0';
+const EMAILJS_SERVICE_ID    = 'service_72o2rro';
+const EMAILJS_TEMPLATE_HOST = 'template_e990196';
+const EMAILJS_TEMPLATE_GUEST= 'template_cdumo2j';
 
 // ---------------------------------------------------------------------------
 // DOMContentLoaded — entry point
