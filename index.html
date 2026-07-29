@@ -100,9 +100,7 @@
       <section id="invitation" class="view relative py-16 min-h-[90vh] flex flex-col items-center justify-center text-center" data-view="intro">
         <div class="hero-content z-10 flex flex-col items-center space-y-8 max-w-2xl w-full" style="opacity:0;">
 
-          <svg class="w-16 h-16 fill-baptism-gold mb-4 opacity-90" viewBox="0 0 24 24">
-            <path d="M11 2V7H7V9H11V22H13V9H17V7H13V2H11Z"></path>
-          </svg>
+          <img src="assets/cross.png" alt="Cross" class="w-64 h-64 object-contain" style="mix-blend-mode: multiply; margin-bottom: -3rem;" />
 
           <div class="space-y-4">
             <h3 class="font-label text-xs text-deep-green tracking-[0.4em] uppercase">Join us to celebrate the</h3>
@@ -126,9 +124,9 @@
 
           <!-- Ceremony Card -->
           <article class="info-card glass-card p-10 rounded-[40px] flex flex-col items-center text-center shadow-lg">
-            <svg class="w-10 h-10 fill-baptism-gold mb-6" viewBox="0 0 24 24">
-              <path d="M11 2V7H7V9H11V22H13V9H17V7H13V2H11Z"></path>
-            </svg>
+            <div class="flex items-center justify-center mb-4 mt-8" style="height:64px;">
+              <img src="assets/cross.png" alt="Cross" class="w-32 h-32 object-contain" style="mix-blend-mode: multiply;" />
+            </div>
             <h4 class="font-label text-xs text-deep-green uppercase tracking-[0.2em] mb-4">The Ceremony</h4>
             <p class="font-body font-bold text-deep-green">St. George's Greek Orthodox Church</p>
             <p class="font-body text-deep-green mt-2">1146 Purcells Cove Rd,</p>
@@ -152,12 +150,19 @@
 
           <!-- Celebration Card -->
           <article class="info-card glass-card p-10 rounded-[40px] flex flex-col items-center text-center shadow-lg">
+            <div class="flex items-center justify-center mb-5 mt-7" style="height:64px;">
+            <svg class="w-16 h-16 fill-baptism-gold opacity-90" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 3H4l4 9.5c0 2.21 1.79 4 4 4s4-1.79 4-4L20 3zm-8 12c-1.1 0-2-.9-2-2h4c0 1.1-.9 2-2 2zm-2.5-4L7.1 5h9.8l-2.4 6h-5z"/>
+              <rect x="11" y="15" width="2" height="4"/>
+              <rect x="8" y="19" width="8" height="2"/>
+            </svg>
+            </div>
             <h4 class="font-label text-xs text-deep-green uppercase tracking-[0.2em] mb-4">The Celebration</h4>
-            <p class="font-script text-4xl text-baptism-gold my-2">Lunch will follow at</p>
-            <p class="font-body font-bold text-deep-green mt-4">Rudy's on the Arm</p>
-            <p class="font-body text-deep-green">at Armdale Yacht Club</p>
+            <p class="font-body font-bold text-deep-green">Rudy's on the Arm</p>
+            <p class="font-body text-deep-green mt-2">at Armdale Yacht Club</p>
             <p class="font-body text-deep-green">75 Burger Run, Halifax, NS</p>
-            <p class="font-script text-3xl text-baptism-gold mt-6">Rsvp by August 7th</p>
+            <p class="font-headline text-xl text-baptism-gold mt-6">Saturday September 5th</p>
+            <p class="font-body text-deep-green mt-1">Lunch to follow at 12:30 PM</p>
 
             <div class="map-embed mt-6 w-full rounded-[20px] overflow-hidden shadow-md">
               <iframe
